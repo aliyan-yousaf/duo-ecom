@@ -1,6 +1,6 @@
 /* ==========================================================================
    DuoEcom — main.js
-   Premium interaction layer: preloader, theme + mobile menu, scroll progress,
+   Premium interaction layer: theme + mobile menu, scroll progress,
    scroll-reveal, image "uncover" reveal, stat count-up, magnetic buttons,
    3D card tilt, gentle hero parallax, portfolio filtering, plus the new
    premium functional sections — infinite tech marquee, numbered interactive
@@ -24,28 +24,6 @@
       fn();
     }
   };
-
-  /* ------------------------------------------------------------------ */
-  /* Preloader                                                          */
-  /* ------------------------------------------------------------------ */
-  function initPreloader() {
-    var preloader = doc.getElementById("preloader");
-    if (!preloader) return;
-    var hide = function () {
-      preloader.classList.add("is-hidden");
-    };
-    // Hide as soon as everything (fonts/images) is ready, with a tiny
-    // minimum so the entrance doesn't flash on fast connections.
-    var minTimer = setTimeout(hide, 450);
-    window.addEventListener(
-      "load",
-      function () {
-        clearTimeout(minTimer);
-        setTimeout(hide, 150);
-      },
-      { once: true }
-    );
-  }
 
   /* ------------------------------------------------------------------ */
   /* Theme toggle (persisted in localStorage, syncs header + mobile)    */
@@ -705,8 +683,272 @@
     });
   }
 
+  /* ------------------------------------------------------------------ */
+  /* GSAP-powered advanced animations                                   */
+  /* Masked-line hero intro, scroll-triggered "wipe" reveal on every     */
+  /* section heading, an ambient parallax glow on the CTA band, and a   */
+  /* staggered star pop-in on testimonial cards. Everything here is     */
+  /* feature-detected — if GSAP/ScrollTrigger fail to load (CDN         */
+  /* blocked, offline, etc.) it quietly no-ops and the existing CSS/AOS */
+  /* reveals still cover the page. Fully skipped for reduced motion.    */
+  /* ------------------------------------------------------------------ */
+  var hasGsap = typeof window.gsap !== "undefined";
+  var hasScrollTrigger = hasGsap && typeof window.ScrollTrigger !== "undefined";
+  if (hasGsap && hasScrollTrigger && !reduceMotion) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  /* Wraps every word of the hero <h1> in its own overflow-hidden inline
+     box so each can be masked and cascaded up individually — recurses
+     into the <em> accent span so those words keep their color, and
+     leaves the <br> untouched so the line break still falls in place. */
+  function wrapWordsInPlace(node, collected) {
+    Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+      if (child.nodeType === 3) {
+        var parts = child.textContent.split(/(\s+)/);
+        var frag = doc.createDocumentFragment();
+        parts.forEach(function (part) {
+          if (part === "") return;
+          if (/^\s+$/.test(part)) {
+            frag.appendChild(doc.createTextNode(part));
+            return;
+          }
+          var word = doc.createElement("span");
+          word.className = "word";
+          var inner = doc.createElement("span");
+          inner.className = "word-inner";
+          inner.textContent = part;
+          word.appendChild(inner);
+          frag.appendChild(word);
+          collected.push(inner);
+        });
+        node.replaceChild(frag, child);
+      } else if (child.tagName === "EM") {
+        wrapWordsInPlace(child, collected);
+      }
+    });
+  }
+
+  function splitHeroTitleWords() {
+    var h1 = doc.querySelector(".hero-title");
+    if (!h1 || h1.dataset.split) return null;
+    h1.dataset.split = "true";
+    var words = [];
+    wrapWordsInPlace(h1, words);
+    return words;
+  }
+
+  function initHeroIntro() {
+    var hero = doc.querySelector(".hero");
+    var stage = doc.querySelector(".hero-premium");
+    if (!hero || !stage || !hasGsap || reduceMotion) return;
+
+    // Flip the CSS keyframes off and gsap.set() the starting state in the
+    // same synchronous pass so there's no flash between the two.
+    hero.classList.add("gsap-ready");
+
+    var badge = stage.querySelector(".hero-badge");
+    var words = splitHeroTitleWords();
+    var lead = stage.querySelector(".lead");
+    var actions = stage.querySelector(".hero-actions");
+    var stats = stage.querySelectorAll(".hero-stat");
+
+    var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    if (badge) {
+      gsap.set(badge, { opacity: 0, y: -10, scale: 0.9 });
+      tl.to(badge, { opacity: 1, y: 0, scale: 1, duration: 0.5 }, 0);
+    }
+    if (words && words.length) {
+      gsap.set(words, { yPercent: 120, opacity: 0 });
+      tl.to(
+        words,
+        { yPercent: 0, opacity: 1, duration: 0.85, stagger: 0.035, ease: "power4.out" },
+        0.12
+      );
+    }
+    if (lead) {
+      gsap.set(lead, { opacity: 0, y: 16 });
+      tl.to(lead, { opacity: 1, y: 0, duration: 0.7 }, 0.55);
+    }
+    if (actions && actions.children.length) {
+      gsap.set(actions.children, { opacity: 0, y: 14, scale: 0.96 });
+      tl.to(
+        actions.children,
+        { opacity: 1, y: 0, scale: 1, duration: 0.55, stagger: 0.08 },
+        0.68
+      );
+    }
+    if (stats.length) {
+      gsap.set(stats, { opacity: 0, y: 12 });
+      tl.to(stats, { opacity: 1, y: 0, duration: 0.6, stagger: 0.07 }, 0.8);
+    }
+  }
+
+  /* One-time "drawing" animation for the decorative hero network — the
+     faint grid lines stroke themselves in, then the dots pop at their
+     intersections. The pulsing "flow" lines (net-flow-*) are untouched;
+     this only draws the static base grid underneath them. */
+  function initHeroNetworkDraw() {
+    if (!hasGsap || reduceMotion) return;
+    var lines = doc.querySelectorAll(".hero-network .net-line");
+    var dots = doc.querySelectorAll(".hero-network .net-dot");
+    if (!lines.length) return;
+
+    lines.forEach(function (line, i) {
+      var len = line.getTotalLength ? line.getTotalLength() : 400;
+      gsap.set(line, { strokeDasharray: len, strokeDashoffset: len });
+      gsap.to(line, {
+        strokeDashoffset: 0,
+        duration: 1.4,
+        ease: "power2.inOut",
+        delay: 0.25 + i * 0.12,
+      });
+    });
+
+    if (dots.length) {
+      gsap.set(dots, { scale: 0, transformOrigin: "50% 50%" });
+      gsap.to(dots, {
+        scale: 1,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: "back.out(3)",
+        delay: 1.1,
+      });
+    }
+  }
+
+  /* Cursor-reactive spotlight over the hero — pure CSS-var driven so it
+     still works even if GSAP fails to load. Desktop/hover only. */
+  function initHeroSpotlight() {
+    if (isTouch) return;
+    var stage = doc.querySelector(".hero-premium");
+    var spot = stage && stage.querySelector(".hero-spotlight");
+    if (!stage || !spot) return;
+    var raf = null;
+
+    stage.addEventListener("mousemove", function (e) {
+      var rect = stage.getBoundingClientRect();
+      var x = ((e.clientX - rect.left) / rect.width) * 100;
+      var y = ((e.clientY - rect.top) / rect.height) * 100;
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(function () {
+        stage.style.setProperty("--spot-x", x.toFixed(1) + "%");
+        stage.style.setProperty("--spot-y", y.toFixed(1) + "%");
+      });
+    });
+    stage.addEventListener("mouseenter", function () {
+      stage.classList.add("spot-active");
+    });
+    stage.addEventListener("mouseleave", function () {
+      stage.classList.remove("spot-active");
+    });
+  }
+
+  /* Scroll-triggered "wipe" reveal — every section heading on the page
+     unmasks left-to-right as it enters the viewport, layered on top of
+     the existing fade + underline-draw for a punchier, more premium feel. */
+  function initSectionHeadingReveal() {
+    if (!hasGsap || !hasScrollTrigger || reduceMotion) return;
+    var heads = doc.querySelectorAll(".section-head h2, .cta-band h2");
+
+    heads.forEach(function (h) {
+      gsap.fromTo(
+        h,
+        { clipPath: "inset(0 100% 0 0)", "-webkit-clip-path": "inset(0 100% 0 0)" },
+        {
+          clipPath: "inset(0 0% 0 0)",
+          "-webkit-clip-path": "inset(0 0% 0 0)",
+          duration: 1,
+          ease: "power4.inOut",
+          scrollTrigger: {
+            trigger: h,
+            start: "top 85%",
+            once: true,
+          },
+        }
+      );
+    });
+  }
+
+  /* Ambient parallax glow behind the CTA band — drifts gently as the     */
+  /* section scrolls through the viewport, driven by the same CSS custom */
+  /* properties the ::before radial gradient already reads from.         */
+  function initCtaAmbientGlow() {
+    if (!hasGsap || !hasScrollTrigger || reduceMotion) return;
+    var cta = doc.querySelector(".cta-band");
+    if (!cta) return;
+
+    gsap.fromTo(
+      cta,
+      { "--cta-glow-x": "0px", "--cta-glow-y": "0px" },
+      {
+        "--cta-glow-x": "-70px",
+        "--cta-glow-y": "60px",
+        ease: "none",
+        scrollTrigger: {
+          trigger: cta,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 0.6,
+        },
+      }
+    );
+  }
+
+  /* Testimonial star ratings pop in one-by-one, back-eased, once the     */
+  /* card scrolls into view — a small but noticeably "alive" touch that   */
+  /* the plain fade-in reveal doesn't give on its own.                    */
+  function initTestimonialStarPop() {
+    if (!hasGsap || !hasScrollTrigger || reduceMotion) return;
+    var groups = doc.querySelectorAll(".testimonial-card .stars");
+
+    groups.forEach(function (group) {
+      var stars = group.querySelectorAll("svg");
+      if (!stars.length) return;
+      gsap.set(stars, { opacity: 0, scale: 0.3, transformOrigin: "50% 50%" });
+      gsap.to(stars, {
+        opacity: 1,
+        scale: 1,
+        duration: 0.4,
+        stagger: 0.07,
+        ease: "back.out(3)",
+        scrollTrigger: {
+          trigger: group,
+          start: "top 88%",
+          once: true,
+        },
+      });
+    });
+  }
+
+  /* Tech-stack icons get a lively little scale/lift pop on hover, on top */
+  /* of the existing 3D tilt on the card itself.                          */
+  function initTechIconPop() {
+    if (!hasGsap || reduceMotion || isTouch) return;
+    doc.querySelectorAll(".tech-card .tech-icon").forEach(function (icon) {
+      var card = icon.closest(".tech-card");
+      if (!card) return;
+      card.addEventListener("mouseenter", function () {
+        gsap.to(icon, { scale: 1.12, y: -4, duration: 0.35, ease: "back.out(2.5)" });
+      });
+      card.addEventListener("mouseleave", function () {
+        gsap.to(icon, { scale: 1, y: 0, duration: 0.35, ease: "power2.out" });
+      });
+    });
+  }
+
+  function initGsapAnimations() {
+    initHeroIntro();
+    initHeroNetworkDraw();
+    initHeroSpotlight();
+    initSectionHeadingReveal();
+    initCtaAmbientGlow();
+    initTestimonialStarPop();
+    initTechIconPop();
+  }
+
   onReady(function () {
-    initPreloader();
     initTheme();
     initMobileMenu();
     initHeaderScrollState();
@@ -721,5 +963,6 @@
     initTechMarquee();
     initServiceTabs();
     initCarousels();
+    initGsapAnimations();
   });
 })();
