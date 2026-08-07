@@ -1,14 +1,3 @@
-/* ==========================================================================
-   DuoEcom — main.js
-   Premium interaction layer: theme + mobile menu, scroll progress,
-   scroll-reveal, image "uncover" reveal, stat count-up, magnetic buttons,
-   3D card tilt, gentle hero parallax, portfolio filtering, plus the new
-   premium functional sections — infinite tech marquee, numbered interactive
-   services tabs, and a shared draggable/swipeable carousel (used for both
-   the portfolio preview and testimonials). Everything guards for
-   prefers-reduced-motion and touch input, and uses passive/rAF-throttled
-   listeners so it stays cheap on scroll.
-   ========================================================================== */
 (function () {
   "use strict";
 
@@ -184,7 +173,7 @@
           observer.unobserve(entry.target);
         });
       },
-      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -5% 0px" }
     );
 
     targets.forEach(function (el) {

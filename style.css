@@ -2074,3 +2074,94 @@ button.store-frame-body {
 [data-theme="dark"] .footer-bottom {
   color: #ffffff !important;
 }
+
+/* ==========================================================================
+   Premium polish — visual refinement only, no structural/content changes.
+   ========================================================================== */
+
+/* Hero stats — vertical dividers + gradient numerals for a sharper,
+   more "agency deck" feel on desktop. */
+@media (min-width: 640px) {
+  .hero-stat { position: relative; padding-left: 22px; }
+  .hero-stat:first-child { padding-left: 0; }
+  .hero-stat::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 4px; bottom: 4px;
+    width: 1px;
+    background: var(--line);
+  }
+  .hero-stat:first-child::before { display: none; }
+}
+.hero-stat .num {
+  background: linear-gradient(135deg, var(--ink) 20%, var(--accent) 120%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Service panel — active panel reads as a premium "spec sheet" card:
+   accent top-border, subtle icon glow, refined tag chips. */
+.service-panel {
+  position: relative;
+  border-color: var(--line);
+}
+.service-panel.is-active {
+  box-shadow: 0 24px 48px -24px var(--shadow-soft);
+}
+.service-panel::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: 24px; right: 24px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent 75%);
+  border-radius: 2px;
+  opacity: .9;
+}
+.service-panel .service-icon {
+  box-shadow: 0 0 0 1px rgba(229,72,77,.14), 0 10px 24px -12px rgba(229,72,77,.35);
+}
+.service-panel .tag {
+  background: var(--surface);
+}
+
+/* Service nav — active row gets a soft accent wash instead of a flat state,
+   reads more like a premium numbered index. */
+.service-nav-item.is-active {
+  background: linear-gradient(90deg, var(--accent-tint), transparent);
+  border-radius: var(--radius-sm);
+}
+.service-nav-item.is-active .service-nav-num {
+  color: var(--accent-dark);
+}
+
+/* Testimonials — quote mark watermark + refined avatar ring, elevated
+   shadow on hover so the carousel feels like a curated review wall. */
+.testimonial-card {
+  position: relative;
+  overflow: hidden;
+}
+.testimonial-card::after {
+  content: "\201D";
+  position: absolute;
+  top: -18px; right: 18px;
+  font-family: var(--font-display);
+  font-size: 96px;
+  line-height: 1;
+  color: var(--accent);
+  opacity: .07;
+  pointer-events: none;
+}
+.testimonial-card:hover {
+  box-shadow: 0 26px 52px -22px var(--shadow-strong);
+}
+.avatar {
+  position: relative;
+  box-shadow: 0 0 0 3px var(--surface), 0 0 0 4px var(--accent-tint);
+}
+
+/* CTA band — crisper edge + slightly stronger depth so it anchors the
+   page close as a genuine call-to-action rather than a plain banner. */
+.cta-band {
+  box-shadow: 0 32px 64px -28px var(--shadow-strong);
+}
