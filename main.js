@@ -316,6 +316,70 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /* Contact form — submits to Web3Forms via fetch so the page never     */
+  /* navigates away; the existing .form-note under the button doubles as */
+  /* the status line (sending / success / error), and the submit button  */
+  /* disables itself while the request is in flight to stop double-sends*/
+  /* ------------------------------------------------------------------ */
+  function initContactForm() {
+    var form = doc.querySelector("[data-web3form]");
+    if (!form) return;
+
+    var statusEl = form.querySelector(".form-status");
+    var submitBtn = form.querySelector("button[type=submit]");
+    var defaultStatus = statusEl ? statusEl.textContent : "";
+    var defaultBtnText = submitBtn ? submitBtn.textContent : "";
+
+    var setStatus = function (text, kind) {
+      if (!statusEl) return;
+      statusEl.textContent = text;
+      statusEl.classList.remove("is-success", "is-error");
+      if (kind) statusEl.classList.add(kind);
+    };
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      /* Honeypot — if this hidden field got filled in, it's a bot; drop
+         the submission silently instead of hitting the API. */
+      var honeypot = form.querySelector('[name="botcheck"]');
+      if (honeypot && honeypot.checked) return;
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending…";
+      }
+      setStatus("Sending your message…");
+
+      var formData = new FormData(form);
+
+      fetch(form.action, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data && data.success) {
+            setStatus("Thanks — your message is sent. We'll reply within one business day.", "is-success");
+            form.reset();
+          } else {
+            setStatus("Something went wrong — please email hello@duoecom.com directly.", "is-error");
+          }
+        })
+        .catch(function () {
+          setStatus("Network error — please email hello@duoecom.com directly.", "is-error");
+        })
+        .finally(function () {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = defaultBtnText;
+          }
+        });
+    });
+  }
+
+  /* ------------------------------------------------------------------ */
   /* FAQ accordion (present on other pages of the site; safe no-op here) */
   /* ------------------------------------------------------------------ */
   function initFaq() {
@@ -1079,6 +1143,7 @@
     initCardTilt();
     initHeroParallax();
     initFaq();
+    initContactForm();
     initPortfolioFilter();
     initAnchorScroll();
     initTechMarquee();

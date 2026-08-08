@@ -103,7 +103,12 @@
       <!-- FORM -->
       <div class="form-card reveal">
         <h3 style="margin-bottom:24px;">Project details</h3>
-        <form class="contact-form">
+        <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" data-web3form>
+          <input type="hidden" name="access_key" value="94f18038-cbb8-4823-bdd7-6f8684626a81">
+          <input type="hidden" name="subject" value="New project inquiry — DuoEcom website">
+          <input type="hidden" name="from_name" value="DuoEcom Website">
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
           <div class="field-row">
             <div class="field">
               <label for="name">Full name</label>
