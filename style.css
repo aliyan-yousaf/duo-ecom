@@ -2192,3 +2192,134 @@ button.store-frame-body {
 .cta-band {
   box-shadow: 0 32px 64px -28px var(--shadow-strong);
 }
+
+/* ==========================================================================
+   Hero v2 — badge icon, glow CTA, pill secondary button, boxed stat cards
+   (matches the client-supplied reference design)
+   ========================================================================== */
+.hero-badge-v2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-badge-v2 svg { flex-shrink: 0; }
+
+.btn-glow {
+  box-shadow: 0 8px 24px -6px rgba(229,72,77,.45);
+}
+.btn-glow:hover {
+  box-shadow: 0 12px 30px -6px rgba(229,72,77,.55);
+}
+[data-theme="dark"] .btn-glow { box-shadow: 0 8px 24px -6px rgba(255,107,111,.4); }
+[data-theme="dark"] .btn-glow:hover { box-shadow: 0 12px 30px -6px rgba(255,107,111,.5); }
+
+.btn-pill-outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+}
+.btn-pill-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+.btn-pill-outline svg { flex-shrink: 0; }
+
+.hero-stats-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  border-top: none;
+  padding-top: 0;
+}
+@media (min-width: 640px) {
+  .hero-stats-cards { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+}
+.hero-premium .hero-stats-cards .hero-stat + .hero-stat {
+  border-left: none;
+  padding-left: 0;
+}
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  padding: 18px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  transition: border-color .3s ease, transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.stat-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px -14px var(--shadow-strong);
+}
+.stat-icon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stat-icon svg { width: 20px; height: 20px; }
+.stat-card .num {
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+}
+.stat-card .label {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+@media (max-width: 480px) {
+  .hero-actions.hero-btns { flex-direction: column; align-items: stretch; }
+  .hero-actions.hero-btns .btn { width: 100%; }
+}
+
+/* ==========================================================================
+   What We Offer — card grid section (replaces the old interactive tabs)
+   ========================================================================== */
+.offer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  margin-top: 44px;
+}
+@media (min-width: 700px) {
+  .offer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1000px) {
+  .offer-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.offer-card {
+  display: flex;
+  flex-direction: column;
+}
+.offer-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+}
+.offer-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+.offer-checklist svg { width: 17px; height: 17px; flex-shrink: 0; }
+.offer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: 22px;
+}
+.offer-link svg { transition: transform .2s var(--ease); }
+.offer-link:hover svg { transform: translateX(3px); }

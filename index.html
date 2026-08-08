@@ -147,23 +147,43 @@
 
       <div class="hero-grid">
         <div>
-          <p class="eyebrow hero-badge">Available for freelance work</p>
+          <p class="eyebrow hero-badge hero-badge-v2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4z"/><path d="M7 5H4a1 1 0 0 0-1 1c0 2.5 1.5 4.5 4 4.9M17 5h3a1 1 0 0 1 1 1c0 2.5-1.5 4.5-4 4.9"/></svg>
+            Available for freelance work
+          </p>
           <h1 class="hero-title">High-converting <em style="font-style:normal; color:var(--accent);">Shopify stores</em>,<br>built for speed, trust, and sales.</h1>
           <p class="lead hero-description" style="margin-top:18px;">DuoEcom designs and develops modern Shopify stores for growing brands — from custom storefronts and speed optimization to complete eCommerce setups that help visitors become customers.</p>
           <div class="hero-actions hero-btns">
             <a
-             href="./pages/contact.html" class="btn btn-accent">Start a project →</a>
+             href="./pages/contact.html" class="btn btn-accent btn-glow">Start a project
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
             <a
-             href="./pages/portfolio.html" class="btn btn-ghost">View live stores</a>
+             href="./pages/portfolio.html" class="btn btn-pill-outline">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              View live stores
+            </a>
           </div>
         </div>
       </div>
 
-      <div class="hero-stats">
-        <div class="hero-stat"><span class="num">60+</span><span class="label">STORES SHIPPED</span></div>
-        <div class="hero-stat"><span class="num">4.9/5</span><span class="label">CLIENT RATING</span></div>
-        <div class="hero-stat"><span class="num">100%</span><span class="label">MOBILE RESPONSIVE</span></div>
-        <div class="hero-stat"><span class="num">5+</span><span class="label">YEARS EXPERIENCE</span></div>
+      <div class="hero-stats hero-stats-cards">
+        <div class="hero-stat stat-card">
+          <span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 17l-5.8 3 1.1-6.5L2.5 8.9l6.6-.9z"/></svg></span>
+          <span class="num">60+</span><span class="label">Stores Shipped</span>
+        </div>
+        <div class="hero-stat stat-card">
+          <span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <span class="num">4.9/5</span><span class="label">Client Rating</span>
+        </div>
+        <div class="hero-stat stat-card">
+          <span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></span>
+          <span class="num">100%</span><span class="label">Mobile Responsive</span>
+        </div>
+        <div class="hero-stat stat-card">
+          <span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z"/></svg></span>
+          <span class="num">5+</span><span class="label">Years Experience</span>
+        </div>
       </div>
     </div>
   </section>
@@ -307,69 +327,65 @@
 
   <hr class="divider container">
 
-  <!-- ============ SERVICES PREVIEW ============ -->
-  <section class="section container">
-    <div class="section-head reveal">
-      <p class="eyebrow">What we do</p>
-      <h2>Everything your store needs to launch and grow.</h2>
+  <!-- ============ WHAT WE OFFER ============ -->
+  <section class="section container offer-section">
+    <div class="section-head center reveal">
+      <p class="eyebrow" style="justify-content:center;">What we offer</p>
+      <h2>Complete Shopify Solutions <span style="color:var(--accent);">for Your Store</span></h2>
+      <p class="lead" style="margin:14px auto 0;">From custom theme design to speed optimization and full store setup, everything you need to launch and grow.</p>
     </div>
 
-    <div class="services-interactive" data-service-tabs>
-      <div class="services-nav reveal reveal-left">
-        <button class="service-nav-item is-active" data-service-target="0" type="button">
-          <span class="service-nav-num">01</span>
-          <span class="service-nav-text">
-            <span class="service-nav-title">Custom theme design</span>
-            <span class="service-nav-progress"><span class="service-nav-progress-fill"></span></span>
-          </span>
-        </button>
-        <button class="service-nav-item" data-service-target="1" type="button">
-          <span class="service-nav-num">02</span>
-          <span class="service-nav-text">
-            <span class="service-nav-title">Speed &amp; CRO optimization</span>
-            <span class="service-nav-progress"><span class="service-nav-progress-fill"></span></span>
-          </span>
-        </button>
-        <button class="service-nav-item" data-service-target="2" type="button">
-          <span class="service-nav-num">03</span>
-          <span class="service-nav-text">
-            <span class="service-nav-title">Full store setup</span>
-            <span class="service-nav-progress"><span class="service-nav-progress-fill"></span></span>
-          </span>
-        </button>
+    <div class="offer-grid">
+      <div class="card offer-card reveal" style="--i:0">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3>Custom theme design</h3>
+        <p style="margin-top:8px; font-size:14.5px;">Unique, on-brand storefronts built from scratch in Liquid — no recycled templates.</p>
+        <ul class="offer-checklist">
+          <li><svg viewBox="0 0 20 20" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M6.5 10.2l2.3 2.3 4.7-4.8"/></svg>Custom design &amp; development</li>
+          <li><svg viewBox="0 0 20 20" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M6.5 10.2l2.3 2.3 4.7-4.8"/></svg>Mobile-first responsive layout</li>
+          <li><svg viewBox="0 0 20 20" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M6.5 10.2l2.3 2.3 4.7-4.8"/></svg>Hand-coded in Liquid</li>
+        </ul>
+        <a href="./pages/services.html" class="offer-link">Learn More
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </div>
 
-      <div class="services-panels reveal reveal-right">
-        <div class="card service-panel is-active" data-service-panel="0">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          </div>
-          <h3>Custom theme design</h3>
-          <p style="margin-top:8px; font-size:14.5px;">Unique, on-brand storefronts built from scratch in Liquid — no recycled templates.</p>
-          <div class="service-tags"><span class="tag">UI/UX</span><span class="tag">Liquid</span><span class="tag">Mobile-first</span></div>
+      <div class="card offer-card reveal" style="--i:1">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
         </div>
+        <h3>Speed &amp; CRO optimization</h3>
+        <p style="margin-top:8px; font-size:14.5px;">Faster load times, smarter checkout flows, and layout tweaks that turn browsers into buyers.</p>
+        <ul class="offer-checklist">
+          <li><svg viewBox="0 0 20 20" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M6.5 10.2l2.3 2.3 4.7-4.8"/></svg>Core Web Vitals optimized</li>
+          <li><svg viewBox="0 0 20 20" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M6.5 10.2l2.3 2.3 4.7-4.8"/></svg>A/B tested layouts</li>
+          <li><svg viewBox="0 0 20 20" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M6.5 10.2l2.3 2.3 4.7-4.8"/></svg>Smoother checkout flow</li>
+        </ul>
+        <a href="./pages/services.html" class="offer-link">Learn More
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
 
-        <div class="card service-panel" data-service-panel="1">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
-          </div>
-          <h3>Speed &amp; CRO optimization</h3>
-          <p style="margin-top:8px; font-size:14.5px;">Faster load times, smarter checkout flows, and layout tweaks that turn browsers into buyers.</p>
-          <div class="service-tags"><span class="tag">Core Web Vitals</span><span class="tag">A/B testing</span></div>
+      <div class="card offer-card reveal" style="--i:2">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
         </div>
-
-        <div class="card service-panel" data-service-panel="2">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-          </div>
-          <h3>Full store setup</h3>
-          <p style="margin-top:8px; font-size:14.5px;">Apps, payments, shipping, and product catalog — configured end to end, ready to sell on day one.</p>
-          <div class="service-tags"><span class="tag">Migration</span><span class="tag">Apps</span></div>
-        </div>
+        <h3>Full store setup</h3>
+        <p style="margin-top:8px; font-size:14.5px;">Apps, payments, shipping, and product catalog — configured end to end, ready to sell on day one.</p>
+        <ul class="offer-checklist">
+          <li><svg viewBox="0 0 20 20" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M6.5 10.2l2.3 2.3 4.7-4.8"/></svg>Apps, payments &amp; shipping</li>
+          <li><svg viewBox="0 0 20 20" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M6.5 10.2l2.3 2.3 4.7-4.8"/></svg>Product catalog &amp; migration</li>
+          <li><svg viewBox="0 0 20 20" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M6.5 10.2l2.3 2.3 4.7-4.8"/></svg>Ready to sell on day one</li>
+        </ul>
+        <a href="./pages/services.html" class="offer-link">Learn More
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </div>
     </div>
 
-    <div style="margin-top:36px;">
+    <div style="margin-top:36px; text-align:center;">
       <a href="./pages/services.html" class="btn btn-ghost">See all services →</a>
     </div>
   </section>
