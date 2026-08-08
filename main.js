@@ -158,7 +158,6 @@
       targets.forEach(function (el) {
         el.classList.add("in-view");
       });
-      runStatCounters(doc.querySelectorAll(".hero-stat"));
       return;
     }
 
@@ -167,9 +166,6 @@
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
           entry.target.classList.add("in-view");
-          if (entry.target.classList.contains("hero-stat")) {
-            runStatCounters([entry.target]);
-          }
           observer.unobserve(entry.target);
         });
       },
