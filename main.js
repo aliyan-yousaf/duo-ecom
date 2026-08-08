@@ -390,34 +390,120 @@
   }
 
   /* ------------------------------------------------------------------ */
-  /* Tech marquee — infinite auto-scroll strip. The HTML already ships  */
-  /* two identical tracks back to back so the CSS keyframe loop is      */
-  /* seamless; JS just pauses the animation while a finger is dragging  */
-  /* on touch devices, mirroring the hover-to-pause behaviour on desktop*/
+  /* Tech marquee — auto-scrolls gently via rAF, but the strip is a real */
+  /* overflow-x scroll container so people can drag it with a mouse,     */
+  /* swipe it on touch, or use the prev/next arrow buttons. The HTML     */
+  /* ships two identical tracks back to back; once scrollLeft passes the */
+  /* width of the first track we silently rewind by that same amount so */
+  /* the loop reads as endless.                                         */
   /* ------------------------------------------------------------------ */
   function initTechMarquee() {
     var marquee = doc.querySelector("[data-marquee]");
-    if (!marquee) return;
+    var scroller = doc.querySelector("[data-marquee-scroll]");
+    var prevBtn = doc.querySelector("[data-marquee-prev]");
+    var nextBtn = doc.querySelector("[data-marquee-next]");
+    if (!marquee || !scroller) return;
 
-    if (!isTouch) return; // hover-to-pause via CSS already covers desktop
+    var firstTrack = scroller.querySelector(".tech-marquee-track");
+    if (!firstTrack) return;
 
-    var startX = null;
-    marquee.addEventListener(
-      "touchstart",
+    var SPEED = 0.55; // px per animation frame, ~28s per loop at 60fps
+    var paused = false;
+    var rafId = null;
+    var resumeTimer = null;
+
+    var loopWidth = function () {
+      return firstTrack.getBoundingClientRect().width;
+    };
+
+    var tick = function () {
+      if (!paused && !reduceMotion) {
+        scroller.scrollLeft += SPEED;
+        var half = loopWidth();
+        if (half > 0 && scroller.scrollLeft >= half) {
+          scroller.scrollLeft -= half;
+        }
+      }
+      rafId = requestAnimationFrame(tick);
+    };
+
+    var pause = function () {
+      paused = true;
+      if (resumeTimer) clearTimeout(resumeTimer);
+    };
+    var resume = function (delay) {
+      if (resumeTimer) clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(function () {
+        paused = false;
+      }, delay || 0);
+    };
+
+    /* Pause on hover (desktop) */
+    scroller.addEventListener("mouseenter", pause);
+    scroller.addEventListener("mouseleave", function () { resume(200); });
+
+    /* Manual drag-to-scroll with the mouse */
+    var dragging = false;
+    var dragStartX = 0;
+    var dragStartScroll = 0;
+    var moved = false;
+
+    scroller.addEventListener("mousedown", function (e) {
+      dragging = true;
+      moved = false;
+      scroller.classList.add("is-dragging");
+      dragStartX = e.clientX;
+      dragStartScroll = scroller.scrollLeft;
+      pause();
+    });
+    window.addEventListener("mousemove", function (e) {
+      if (!dragging) return;
+      var delta = e.clientX - dragStartX;
+      if (Math.abs(delta) > 3) moved = true;
+      scroller.scrollLeft = dragStartScroll - delta;
+    });
+    window.addEventListener("mouseup", function () {
+      if (!dragging) return;
+      dragging = false;
+      scroller.classList.remove("is-dragging");
+      resume(400);
+    });
+    /* Prevent the drag turning into a click on tech-card links right after */
+    scroller.addEventListener(
+      "click",
       function (e) {
-        startX = e.touches[0].clientX;
-        marquee.classList.add("is-paused");
+        if (moved) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
       },
-      { passive: true }
+      true
     );
-    marquee.addEventListener(
+
+    /* Touch: native scrolling already works (overflow-x: auto); just     */
+    /* pause the rAF auto-scroll while a finger is on the strip.          */
+    scroller.addEventListener("touchstart", pause, { passive: true });
+    scroller.addEventListener(
       "touchend",
-      function () {
-        marquee.classList.remove("is-paused");
-        startX = null;
-      },
+      function () { resume(400); },
       { passive: true }
     );
+
+    /* Prev / next arrow buttons — nudge by roughly one visible "page". */
+    var nudge = function (dir) {
+      pause();
+      var cardEl = scroller.querySelector(".tech-card");
+      var step = cardEl ? cardEl.getBoundingClientRect().width + 16 : 200;
+      var amount = Math.round(scroller.clientWidth * 0.7) || step * 2;
+      scroller.scrollBy({ left: dir * amount, behavior: "smooth" });
+      resume(1200);
+    };
+    if (prevBtn) prevBtn.addEventListener("click", function () { nudge(-1); });
+    if (nextBtn) nextBtn.addEventListener("click", function () { nudge(1); });
+
+    if (!reduceMotion) {
+      rafId = requestAnimationFrame(tick);
+    }
   }
 
   /* ------------------------------------------------------------------ */
@@ -834,6 +920,44 @@
     });
   }
 
+  /* Directional section reveals (left / right / down) — driven by GSAP +
+     ScrollTrigger instead of a plain CSS transition, so the motion is
+     scroll-linked and uses GSAP's easing for a smoother, more premium
+     feel. The CSS .reveal-left/.reveal-right/.reveal-down rules (and the
+     IntersectionObserver that toggles .in-view) stay in place underneath
+     as a fallback for when GSAP/ScrollTrigger fail to load — GSAP simply
+     takes over the same elements with an inline-style animation once it
+     is available, so nothing is ever left permanently hidden. */
+  function initDirectionalReveal() {
+    if (!hasGsap || !hasScrollTrigger || reduceMotion) return;
+
+    var run = function (selector, fromVars) {
+      var els = doc.querySelectorAll(selector);
+      els.forEach(function (el) {
+        gsap.fromTo(
+          el,
+          fromVars,
+          {
+            x: 0,
+            y: 0,
+            opacity: 1,
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 88%",
+              once: true,
+            },
+          }
+        );
+      });
+    };
+
+    run(".reveal-left",  { x: -70, opacity: 0 });
+    run(".reveal-right", { x: 70,  opacity: 0 });
+    run(".reveal-down",  { y: -44, opacity: 0 });
+  }
+
   /* Scroll-triggered "wipe" reveal — every section heading on the page
      unmasks left-to-right as it enters the viewport, layered on top of
      the existing fade + underline-draw for a punchier, more premium feel. */
@@ -842,6 +966,13 @@
     var heads = doc.querySelectorAll(".section-head h2, .cta-band h2");
 
     heads.forEach(function (h) {
+      /* Headings whose wrapper already has a directional reveal
+         (.reveal-left/.reveal-right/.reveal-down) skip this separate
+         clip-path wipe — running both at once hid the slide, since the
+         text only became visible after the wrapper's own animation had
+         already finished. */
+      if (h.closest(".reveal-left, .reveal-right, .reveal-down")) return;
+
       gsap.fromTo(
         h,
         { clipPath: "inset(0 100% 0 0)", "-webkit-clip-path": "inset(0 100% 0 0)" },
@@ -931,6 +1062,7 @@
     initHeroIntro();
     initHeroNetworkDraw();
     initHeroSpotlight();
+    initDirectionalReveal();
     initSectionHeadingReveal();
     initCtaAmbientGlow();
     initTestimonialStarPop();

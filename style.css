@@ -1272,6 +1272,21 @@ button.store-frame-body {
 }
 .reveal.in-view { opacity: 1; transform: translateY(0); }
 
+/* Directional variants — combine with .reveal, e.g. class="reveal reveal-left" */
+.reveal-left  { transform: translateX(-64px); transition: opacity .65s var(--ease), transform .65s var(--ease); }
+.reveal-left.in-view  { transform: translateX(0); }
+.reveal-right { transform: translateX(64px); transition: opacity .65s var(--ease), transform .65s var(--ease); }
+.reveal-right.in-view { transform: translateX(0); }
+.reveal-down  { transform: translateY(-36px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+.reveal-down.in-view  { transform: translateY(0); }
+
+@media (max-width: 640px) {
+  /* Keep the motion subtle on narrow viewports so content doesn't travel
+     further than the viewport can comfortably show. */
+  .reveal-left  { transform: translateX(-30px); }
+  .reveal-right { transform: translateX(30px); }
+}
+
 /* Stagger children — capped so a long grid never feels sluggish to finish */
 .reveal-group > * { transition-delay: calc(var(--i, 0) * 50ms); }
 
@@ -1559,11 +1574,21 @@ button.store-frame-body {
 
 .tech-marquee {
   position: relative;
-  overflow: hidden;
+}
+
+.tech-marquee-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
   display: flex;
+  cursor: grab;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
           mask-image: linear-gradient(90deg, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
 }
+.tech-marquee-scroll::-webkit-scrollbar { display: none; }
+.tech-marquee-scroll.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+
 .tech-marquee-fade {
   position: absolute;
   top: 0; bottom: 0;
@@ -1574,12 +1599,25 @@ button.store-frame-body {
 .tech-marquee-fade-left  { left: 0;  background: linear-gradient(90deg, var(--bg), transparent); }
 .tech-marquee-fade-right { right: 0; background: linear-gradient(270deg, var(--bg), transparent); }
 
+.tech-marquee-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+}
+.tech-marquee-arrow-prev { left: 4px; }
+.tech-marquee-arrow-next { right: 4px; }
+@media (max-width: 640px) {
+  .tech-marquee-arrow { width: 36px; height: 36px; }
+  .tech-marquee-arrow svg { width: 15px; height: 15px; }
+}
+
 .tech-marquee-track {
   display: flex;
   gap: 16px;
   width: max-content;
   padding-right: 16px;
-  animation: tech-marquee-scroll 28s linear infinite;
+  flex: 0 0 auto;
 }
 
 .tech-marquee-track .tech-card {
@@ -1591,18 +1629,7 @@ button.store-frame-body {
   .tech-marquee-track .tech-card { width: 176px; }
 }
 
-.tech-marquee.is-paused .tech-marquee-track,
-.tech-marquee:hover .tech-marquee-track {
-  animation-play-state: paused;
-}
-
-@keyframes tech-marquee-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-100%); }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .tech-marquee-track { animation: none; }
   .tech-marquee-track[aria-hidden="true"] { display: none; }
 }
 
@@ -1933,15 +1960,15 @@ button.store-frame-body {
 
 /* ---------- Services tab list: rows slide in from the left, icon pops
    in with a spring bounce whenever a new panel becomes active ---------- */
-.services-interactive.reveal .service-nav-item {
+.services-nav.reveal .service-nav-item {
   opacity: 0;
   transform: translateX(-18px);
   transition: opacity .5s var(--ease), transform .5s var(--ease);
 }
-.services-interactive.reveal.in-view .service-nav-item { opacity: 1; transform: translateX(0); }
-.services-interactive.reveal.in-view .service-nav-item:nth-child(1) { transition-delay: .05s; }
-.services-interactive.reveal.in-view .service-nav-item:nth-child(2) { transition-delay: .12s; }
-.services-interactive.reveal.in-view .service-nav-item:nth-child(3) { transition-delay: .19s; }
+.services-nav.reveal.in-view .service-nav-item { opacity: 1; transform: translateX(0); }
+.services-nav.reveal.in-view .service-nav-item:nth-child(1) { transition-delay: .05s; }
+.services-nav.reveal.in-view .service-nav-item:nth-child(2) { transition-delay: .12s; }
+.services-nav.reveal.in-view .service-nav-item:nth-child(3) { transition-delay: .19s; }
 
 @keyframes service-icon-pop {
   from { opacity: 0; transform: scale(.4) rotate(-18deg); }
@@ -1951,7 +1978,7 @@ button.store-frame-body {
   animation: service-icon-pop .5s var(--ease-spring) .08s both;
 }
 @media (prefers-reduced-motion: reduce) {
-  .services-interactive.reveal .service-nav-item { opacity: 1; transform: none; transition: none; }
+  .services-nav.reveal .service-nav-item { opacity: 1; transform: none; transition: none; }
   .service-panel.is-active .service-icon { animation: none; }
 }
 

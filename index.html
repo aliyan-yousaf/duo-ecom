@@ -171,13 +171,20 @@
   <!-- ============ TECH STACK ============ -->
   <section class="section container"
   >
-    <div class="section-head reveal">
+    <div class="section-head reveal reveal-down">
       <h2>Technologies We use daily to craft exceptional digital experiences.</h2>
     </div>
 
     <div class="tech-marquee reveal" data-marquee>
       <div class="tech-marquee-fade tech-marquee-fade-left" aria-hidden="true"></div>
       <div class="tech-marquee-fade tech-marquee-fade-right" aria-hidden="true"></div>
+      <button class="carousel-arrow tech-marquee-arrow tech-marquee-arrow-prev" data-marquee-prev type="button" aria-label="Scroll technologies left">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="carousel-arrow tech-marquee-arrow tech-marquee-arrow-next" data-marquee-next type="button" aria-label="Scroll technologies right">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <div class="tech-marquee-scroll" data-marquee-scroll>
       <div class="tech-marquee-track">
         <div class="tech-card">
           <div class="tech-icon">
@@ -294,6 +301,7 @@
           <div class="tech-bar"></div>
         </div>
       </div>
+      </div>
     </div>
   </section>
 
@@ -306,8 +314,8 @@
       <h2>Everything your store needs to launch and grow.</h2>
     </div>
 
-    <div class="services-interactive reveal" data-service-tabs>
-      <div class="services-nav">
+    <div class="services-interactive" data-service-tabs>
+      <div class="services-nav reveal reveal-left">
         <button class="service-nav-item is-active" data-service-target="0" type="button">
           <span class="service-nav-num">01</span>
           <span class="service-nav-text">
@@ -331,8 +339,7 @@
         </button>
       </div>
 
-      <div class="services-panels"
-      >
+      <div class="services-panels reveal reveal-right">
         <div class="card service-panel is-active" data-service-panel="0">
           <div class="service-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
@@ -487,22 +494,22 @@
       <h2>From kickoff to launch in four stages.</h2>
     </div>
     <div class="process-list reveal-group">
-      <div class="process-step reveal" style="--i:0">
+      <div class="process-step reveal reveal-left" style="--i:0">
         <span class="process-num">01</span>
         <h3>Discovery &amp; strategy</h3>
         <p>We map your brand, audience, and goals to a clear store structure before any design starts.</p>
       </div>
-      <div class="process-step reveal" style="--i:1">
+      <div class="process-step reveal reveal-right" style="--i:1">
         <span class="process-num">02</span>
         <h3>Design</h3>
         <p>Custom mockups for key pages — home, collection, product, cart — built around your products.</p>
       </div>
-      <div class="process-step reveal" style="--i:2">
+      <div class="process-step reveal reveal-left" style="--i:2">
         <span class="process-num">03</span>
         <h3>Development</h3>
         <p>Hand-coded Liquid theme, app integrations, and speed optimization, tested on real devices.</p>
       </div>
-      <div class="process-step reveal" style="--i:3">
+      <div class="process-step reveal reveal-right" style="--i:3">
         <span class="process-num">04</span>
         <h3>Launch &amp; support</h3>
         <p>We go live together, then stick around for fixes, tweaks, and the first traffic spike.</p>
@@ -513,7 +520,7 @@
   <!-- ============ TESTIMONIALS ============ -->
   <section class="section section-bg">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head reveal reveal-down">
         <p class="eyebrow">Client feedback</p>
         <h2>What Our Client Say About Us</h2>
       </div>
@@ -576,6 +583,74 @@
               </div>
             </div>
 
+            <div class="card testimonial-card carousel-slide reveal" style="--i:3">
+              <div>
+                <div class="stars">
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                </div>
+                <p class="testimonial-quote">"Very professional and patient with all my revisions. The store looks exactly like the premium brands I was trying to compete with. Will definitely be back for the next project."</p>
+              </div>
+              <div class="testimonial-person">
+                <div class="avatar">SM</div>
+                <div><div class="name">sarah.mendes</div><div class="role">Owner, Coastal Home Co.</div></div>
+              </div>
+            </div>
+
+            <div class="card testimonial-card carousel-slide reveal" style="--i:4">
+              <div>
+                <div class="stars">
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                </div>
+                <p class="testimonial-quote">"Migrated our old theme to a custom build without losing any of our SEO rankings. Site speed improved a lot and checkout feels so much smoother now. Solid communication throughout."</p>
+              </div>
+              <div class="testimonial-person">
+                <div class="avatar">DK</div>
+                <div><div class="name">davidk_retail</div><div class="role">Founder, UrbanGear Supply</div></div>
+              </div>
+            </div>
+
+            <div class="card testimonial-card carousel-slide reveal" style="--i:5">
+              <div>
+                <div class="stars">
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                </div>
+                <p class="testimonial-quote">"First time working with a Shopify developer and it exceeded expectations. Clear updates at every step and delivered exactly what we discussed, on schedule. Highly recommend for any store redesign."</p>
+              </div>
+              <div class="testimonial-person">
+                <div class="avatar">MH</div>
+                <div><div class="name">mariah.hlt</div><div class="role">Owner, Bloom &amp; Wick</div></div>
+              </div>
+            </div>
+
+            <div class="card testimonial-card carousel-slide reveal" style="--i:6">
+              <div>
+                <div class="stars">
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                  <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
+                </div>
+                <p class="testimonial-quote">"Great attention to detail on mobile responsiveness, which our old store was really lacking. Sales from mobile traffic have visibly picked up since launch. Would hire again."</p>
+              </div>
+              <div class="testimonial-person">
+                <div class="avatar">JT</div>
+                <div><div class="name">jtan.commerce</div><div class="role">Owner, Nordic Kitchenware</div></div>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -594,7 +669,7 @@
 
   <!-- ============ CTA ============ -->
   <section class="section container">
-    <div class="cta-band reveal">
+    <div class="cta-band reveal reveal-down">
       <h2>Ready to Launch a High-Converting Shopify Store?</h2>
       <p>Share your project details, and we'll respond within one business day with expert recommendations and a clear roadmap for your store.</p>
       <div class="btn-row">
@@ -643,7 +718,7 @@
       <div class="footer-col">
         <h4 class="navigg">Get in touch</h4>
         <ul>
-          <li><a href="mailto:info@duoecom.com">info@duoecom.com</a></li>
+          <li><a href="mailto:duoecomdigital@gmail.com">duoecomdigital@gmail.com</a></li>
           <li><a href="https://www.fiverr.com/aliyanyy77" target="_blank" rel="noopener">Hire us on Fiverr</a></li>
           <li><a href="./pages/contact.html">Request a quote</a></li>
         </ul>
