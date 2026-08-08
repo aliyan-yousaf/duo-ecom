@@ -7,12 +7,12 @@
   --bg:           #ffffff;
   --bg-soft:      #FFFFFF;
   --surface:      #FFFFFF;
-  --accent-tint:  #FCE9E7;
+  --accent-tint:  #E3EDFC;
   --ink:          #1A1D1F;
   --ink-soft:     #5B5F66;
   --line:         #E4E2DC;
-  --accent:       #E5484D;
-  --accent-dark:  #C82B30;
+  --accent:       #005beb;
+  --accent-dark:  #0047b8;
   --accent-ink:   #FFFFFF;
   --success:      #1F9D6B;
   --shadow-soft:  rgba(26,29,31,.14);
@@ -43,13 +43,13 @@
   --bg:           #14161A;
   --bg-soft:      #1B1E23;
   --surface:      #1F2228;
-  --accent-tint:  #3A2222;
+  --accent-tint:  #1B2A44;
   --ink:          #F2F1ED;
   --ink-soft:     #9A9DA4;
   --line:         #2D3038;
-  --accent:       #FF6B6F;
-  --accent-dark:  #FF9A9D;
-  --accent-ink:   #14161A;
+  --accent:       #4C8DFF;
+  --accent-dark:  #7FB0FF;
+  --accent-ink:   #0B1420;
   --success:      #36C98C;
   --shadow-soft:  rgba(0,0,0,.45);
   --shadow-strong: rgba(0,0,0,.6);
@@ -207,7 +207,7 @@ p { color: var(--ink-soft); }
   background: var(--accent);
   color: #fff;
 }
-.btn-accent:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(229,72,77,.35); background: var(--accent-dark); }
+.btn-accent:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,91,235,.35); background: var(--accent-dark); }
 
 .btn-ghost {
   background: transparent;
@@ -409,7 +409,6 @@ p { color: var(--ink-soft); }
   flex-direction: column;
   justify-content: center;
   padding: 32px;
-  /* margin-top: -120px; */
   transform: translateY(-100%);
   transition: transform .4s var(--ease);
   opacity: 0;
@@ -442,11 +441,11 @@ p { color: var(--ink-soft); }
 /* ==========================================================================
    Section spacing
    ========================================================================== */
-.section { padding-top: 72px; padding-bottom: 72px; position: relative; }
-.section-tight { padding-top: 48px; padding-bottom: 48px; }
+.section { padding-top: 52px; padding-bottom: 52px; position: relative; }
+.section-tight { padding-top: 36px; padding-bottom: 36px; }
 @media (min-width: 900px) {
-  .section { padding-top: 120px; padding-bottom: 120px; }
-  .section-tight { padding-top: 72px; padding-bottom: 72px; }
+  .section { padding-top: 84px; padding-bottom: 84px; }
+  .section-tight { padding-top: 56px; padding-bottom: 56px; }
 }
 
 .section-bg { background: var(--bg-soft); }
@@ -457,7 +456,10 @@ p { color: var(--ink-soft); }
 .section-ink h2, .section-ink h3, .section-ink p { color: #fff; }
 .section-ink .lead, .section-ink p { color: rgba(255,255,255,.68); }
 
-.section-head { max-width: 640px; margin-bottom: 48px; }
+.section-head { max-width: 640px; margin-bottom: 40px; display: flex; flex-direction: column; }
+.section-head .eyebrow { order: 1; }
+.section-head h2 { order: 2; }
+.section-head .lead { order: 3; }
 .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
 
 /* Soft connective fade so adjacent sections don't cut off abruptly */
@@ -811,7 +813,7 @@ button.store-frame-body {
   padding-top: 4px;
   transition: text-shadow .3s ease;
 }
-.process-step:hover .process-num { text-shadow: 0 0 14px rgba(229,72,77,.5); }
+.process-step:hover .process-num { text-shadow: 0 0 14px rgba(0,91,235,.5); }
 @media (max-width: 699px) {
   .process-step {
     grid-template-columns: 1fr;
@@ -933,7 +935,7 @@ button.store-frame-body {
 /* ==========================================================================
    CTA band
    Theme-aware: light mode gets a light surface card, dark mode gets the
-   dark ink card with the red radial glow.
+   dark ink card with the blue radial glow.
    ========================================================================== */
 .cta-band {
   background: var(--surface);
@@ -948,7 +950,7 @@ button.store-frame-body {
   content: "";
   position: absolute;
   width: 420px; height: 420px;
-  background: radial-gradient(circle, rgba(229,72,77,.5), transparent 70%);
+  background: radial-gradient(circle, rgba(0,91,235,.5), transparent 70%);
   top: -160px; right: -120px;
   opacity: .25;
   transition: opacity .35s ease;
@@ -1438,11 +1440,11 @@ button.store-frame-body {
   pointer-events: none;
   opacity: 0;
   transition: opacity .5s ease;
-  background: radial-gradient(480px circle at var(--spot-x, 50%) var(--spot-y, 15%), rgba(229,72,77,.14), transparent 65%);
+  background: radial-gradient(480px circle at var(--spot-x, 50%) var(--spot-y, 15%), rgba(0,91,235,.14), transparent 65%);
 }
 .hero-premium.spot-active .hero-spotlight { opacity: 1; }
 [data-theme="dark"] .hero-spotlight {
-  background: radial-gradient(480px circle at var(--spot-x, 50%) var(--spot-y, 15%), rgba(255,107,111,.16), transparent 65%);
+  background: radial-gradient(480px circle at var(--spot-x, 50%) var(--spot-y, 15%), rgba(76,141,255,.16), transparent 65%);
 }
 @media (max-width: 700px) {
   .hero-spotlight { display: none; }
@@ -2146,7 +2148,7 @@ button.store-frame-body {
   opacity: .9;
 }
 .service-panel .service-icon {
-  box-shadow: 0 0 0 1px rgba(229,72,77,.14), 0 10px 24px -12px rgba(229,72,77,.35);
+  box-shadow: 0 0 0 1px rgba(0,91,235,.14), 0 10px 24px -12px rgba(0,91,235,.35);
 }
 .service-panel .tag {
   background: var(--surface);
@@ -2205,13 +2207,13 @@ button.store-frame-body {
 .hero-badge-v2 svg { flex-shrink: 0; }
 
 .btn-glow {
-  box-shadow: 0 8px 24px -6px rgba(229,72,77,.45);
+  box-shadow: 0 8px 24px -6px rgba(0,91,235,.45);
 }
 .btn-glow:hover {
-  box-shadow: 0 12px 30px -6px rgba(229,72,77,.55);
+  box-shadow: 0 12px 30px -6px rgba(0,91,235,.55);
 }
-[data-theme="dark"] .btn-glow { box-shadow: 0 8px 24px -6px rgba(255,107,111,.4); }
-[data-theme="dark"] .btn-glow:hover { box-shadow: 0 12px 30px -6px rgba(255,107,111,.5); }
+[data-theme="dark"] .btn-glow { box-shadow: 0 8px 24px -6px rgba(76,141,255,.4); }
+[data-theme="dark"] .btn-glow:hover { box-shadow: 0 12px 30px -6px rgba(76,141,255,.5); }
 
 .btn-pill-outline {
   background: transparent;
@@ -2323,3 +2325,83 @@ button.store-frame-body {
 }
 .offer-link svg { transition: transform .2s var(--ease); }
 .offer-link:hover svg { transform: translateX(3px); }
+
+
+
+/* ==========================================================================
+   Process timeline — icon boxes with numbered badges on a connecting line
+   (matches the client-supplied reference design)
+   ========================================================================== */
+.process-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  margin-top: 48px;
+}
+.process-track-line {
+  position: absolute;
+  top: 34px;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: var(--line);
+  z-index: 0;
+}
+.process-step-v2 {
+  position: relative;
+  z-index: 1;
+}
+.process-icon-wrap {
+  position: relative;
+  display: inline-flex;
+  margin-bottom: 20px;
+}
+.process-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, var(--accent), var(--accent-2, var(--accent)));
+  box-shadow: 0 12px 24px -10px rgba(0,91,235,.5);
+}
+.process-icon svg { width: 28px; height: 28px; }
+.process-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.process-step-v2 h3 { font-size: 1.05rem; margin-bottom: 6px; }
+.process-step-v2 p { font-size: 14px; color: var(--ink-soft); }
+
+@media (max-width: 860px) {
+  .process-timeline { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
+  .process-track-line { display: none; }
+}
+@media (max-width: 480px) {
+  .process-timeline { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   Tech stack section — now sits between the CTA band and the footer.
+   Slightly tighter bottom padding here so it sits close to the footer
+   without an oversized gap.
+   ========================================================================== */
+.tech-stack-section { padding-bottom: 40px; }
+@media (min-width: 900px) {
+  .tech-stack-section { padding-bottom: 64px; }
+}
